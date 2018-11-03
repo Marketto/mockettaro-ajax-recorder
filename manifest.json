@@ -1,0 +1,27 @@
+{
+  "name": "Mockettaro Ajax Recorder",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Dump ajax request/responses data and code to file to be served by mockettaro",
+  "homepage_url": "https://blog.marketto.it",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "scripts": ["src/bg/background.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_icon": "icons/icon19.png",
+    "default_title": "Record Ajax",
+    "default_popup": "src/menu/menu.html"
+  },
+  "permissions": [
+    "contextMenus",
+    "declarativeContent",
+    "activeTab"
+  ]
+}

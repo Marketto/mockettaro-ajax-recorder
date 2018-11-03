@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" href="../../node_modules/bulma/css/bulma.min.css">
+		<link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css">
+	</head>
+	<body>
+		<section id="mainmenu" class="section">
+			<div class="container">
+				<aside class="menu">
+					<p class="menu-label">
+						{{ title }}
+					</p>
+					<ul class="menu-list">
+						<li class="field">
+							<p class="control has-icons-left has-icons-right">
+								<input v-bind:disabled="recording" class="input is-info is-rounded" type="text" placeholder="Pattern to record: /api/">
+								<span class="icon is-small is-left">
+									<i class="fa fa-filter"></i>
+								</span>
+							</p>
+						</li>
+						<li class="field">
+							<a v-if="recording" class="button is-rounded is-danger" v-on:click="stop"> Stop recording</a>
+							<a v-else class="button is-rounded" v-on:click="record">Record</a>
+						</li>
+					</ul>
+				</aside>
+			</div>
+		</section>
+
+        <script src="../../node_modules/vue/dist/vue.js"></script>
+		<script src="menu.js" type="module"></script>
+	</body>
+</html>
