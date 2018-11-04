@@ -14,7 +14,7 @@
 					<ul class="menu-list">
 						<li class="field">
 							<p class="control has-icons-left has-icons-right">
-								<input v-bind:disabled="recording" class="input is-info is-rounded" type="text" placeholder="Pattern to record: /api/">
+								<input v-bind:disabled="recording" v-model="urlFilter" class="input is-info is-rounded" type="text" placeholder="Pattern to record: /api/">
 								<span class="icon is-small is-left">
 									<i class="fa fa-filter"></i>
 								</span>

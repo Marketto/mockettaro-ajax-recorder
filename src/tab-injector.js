@@ -1,29 +1,43 @@
-export function tabInjector(functionToInject, destroyMethodName) {
-    return `(${((functionToInject, destroyMethodName)=>{
+export function tabInjector({methodToInject, destroySnippet, onDestroy}) {
+
+    function destroyInjector(beforeDestroyEvent, destroyMethodName){
+        const o = document.createElement('destroy-output');
+        o.id = 'destroy-me';
+        o.style.display = "none";
+        o.innerHTML = JSON.stringify(beforeDestroyEvent());
+        (document.body || document.documentElement).appendChild(o);
+        destroyMethodName();
+        setTimeout(() => {
+            const getDestroyMe = ()=>document.getElementById('destroy-me');
+            let element;
+            while(element = getDestroyMe()) {
+                element.remove();
+            }
+        }, 10);
+    }
+
+    return `(${((functionToInject, destroyMethodName, beforeDestroyEvent, $destroy) => {
         
         const s = document.createElement('script');
-        s.setAttribute('destroy','me');
+        s.id = 'destroy-me';
         s.text = `(${functionToInject.toString()})();`;
         (document.head || document.documentElement).appendChild(s);
 
         window.uninject = () => {
-            if (destroyMethodName){
-                const d = document.createElement('script');
-                d.setAttribute('destroy','me');
-                d.text = `(()=>{${destroyMethodName}()})();`;
-                d.onload = function() {
-                    setTimeout(()=>{
-                        this.remove();
-                    },200);
-                };
-                (document.head || document.documentElement).appendChild(d);
-                s.remove();
-                d.remove();
-            };
-            window.injected = undefined;
-            delete window.injected;
+            
+            const d = document.createElement('script');
+            d.id = 'destroy-me';
+            d.text = `(${$destroy.toString()})(()=>${beforeDestroyEvent}, ()=>${destroyMethodName});`;
+            (document.head || document.documentElement).appendChild(d);
+
+            const o = document.all[0].getElementsByTagName("destroy-output")[0];
+            const destroyOutput = JSON.parse(o.innerHTML);
+            chrome.runtime.sendMessage(destroyOutput, () => {
+                window.injected = undefined;
+                delete window.injected;
+            });
         };
 
         window.injected = true;
-    }).toString()})(${functionToInject.toString()}, '${destroyMethodName}')`;
+    }).toString()})(${methodToInject.toString()}, '${destroySnippet}', '${onDestroy}', ${destroyInjector.toString()})`;
 }
