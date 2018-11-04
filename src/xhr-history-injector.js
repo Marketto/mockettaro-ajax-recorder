@@ -12,7 +12,7 @@ export function xhrHistoryInjector() {
                 return XHRHistory.map(xhr=>({
                     timestamp 	: xhr.time.toJSON(),
                     url 		: xhr.XResponse.openArguments[1], //xhr.XResponse.responseUrl || xhr.XResponse.responseURL,
-                    status		: xhr.XResponse.status,
+                    status  	: xhr.XResponse.status,
                     method      : xhr.XResponse.openArguments[0],
                     response    : xhr.XResponse.response && JSON.parse(xhr.XResponse.response),
                     request 	: xhr.XRequestBody && JSON.parse(xhr.XRequestBody)

@@ -30,15 +30,15 @@
                         (data = []) => {
                             function wrapCallToFiles(call = {}){
                                 const wrap = [];
-                                const path = call.url.match(/^(?:https?:\/\/[^\/]+)?\/(.+)/);
+                                const [,path] = call.url.match(/^(?:https?:\/\/[^\/]+)?\/([^?]+)/);
                                 const responseContent = JSON.stringify(call.response);
-                                const statusCode = call.code;
+                                const statusCode = call.status;
                                 const method = call.method;
 
                                 //code
                                 wrap.push({
                                     path: `${path}.${method}.code`,
-                                    content: statusCode
+                                    content: "" + statusCode
                                 });
                                 //response
                                 wrap.push({
