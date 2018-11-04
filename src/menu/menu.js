@@ -51,16 +51,18 @@
 
                             const filteredData = this.urlFilter ? data.filter(record=>record.url.match(new RegExp(this.urlFilter))) : data;
                             const fileMap = filteredData.length < 2 ? (filteredData[0] ? wrapCallToFiles(filteredData[0]) : []) : filteredData.reduce((prev,curr)=>{
+                                const chain = Array.isArray(prev) ? prev : [].concat(wrapCallToFiles(prev));
                                 
-                                
-                                const chain = Array.isArray(prev) ? prev : concat(wrapCallToFiles(prev));
-                                
-                                chain = chain.concat(wrapCallToFiles(curr));
-                            
-                                return chain;
+                                return chain.concat(wrapCallToFiles(curr));
                             });
                             
-                            alert(JSON.stringify(fileMap));
+                            import('../zip-exporter.js').then(({mockettaroExport})=>{
+                                mockettaroExport(fileMap).catch(err => {
+                                    alert(`An error occurred while trying to export zip of records\n${err.toString()}`);
+                                });
+                            }).catch(err => {
+                                alert(`An error occurred while trying to create zip of records\n${err.toString()}`);
+                            });
                         }
                     );
                     chrome.tabs.executeScript(undefined, {code: `window.uninject();`, runAt: 'document_end'}, () => {

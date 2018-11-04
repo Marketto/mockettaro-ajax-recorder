@@ -9,7 +9,6 @@ export function xhrHistoryInjector() {
             xhrProto.send = newXhrSend(xhrProto.send);
             xhrProto.open = newXhrOpen(xhrProto.open);
             targetWindow.xhrHistoryLog = ()=>{
-                console.log(XHRHistory);
                 return XHRHistory.map(xhr=>({
                     timestamp 	: xhr.time.toJSON(),
                     url 		: xhr.XResponse.openArguments[1], //xhr.XResponse.responseUrl || xhr.XResponse.responseURL,
@@ -37,14 +36,6 @@ export function xhrHistoryInjector() {
 
             function newXhrSend(oldSend){
                 return function(body) {
-                    // if (typeof arguments !== 'undefined' && arguments !== null) {
-                    //     console.log(this);
-                    //     XHRHistory.push({
-                    //         time: new Date(),
-                    //         XResponse: this,
-                    //         XRequest: arguments
-                    //     });
-                    // }
                     XHRHistory.push({
                         time: new Date(),
                         XResponse: this,
