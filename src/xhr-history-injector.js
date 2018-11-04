@@ -5,14 +5,18 @@ export function xhrHistoryInjector() {
         if (!targetWindow.xhrHistoryInjected){
             const xhrProto = targetWindow.XMLHttpRequest.prototype;
             const originalSend = xhrProto.send;
+            const originalOpen = xhrProto.open;
             xhrProto.send = newXhrSend(xhrProto.send);
+            xhrProto.open = newXhrOpen(xhrProto.open);
             targetWindow.xhrHistoryLog = ()=>{
+                console.log(XHRHistory);
                 return XHRHistory.map(xhr=>({
                     timestamp 	: xhr.time.toJSON(),
-                    url 		: xhr.XResponse.responseUrl || xhr.XResponse.responseURL,
+                    url 		: xhr.XResponse.openArguments[1], //xhr.XResponse.responseUrl || xhr.XResponse.responseURL,
                     status		: xhr.XResponse.status,
+                    method      : xhr.XResponse.openArguments[0],
                     response    : xhr.XResponse.response && JSON.parse(xhr.XResponse.response),
-                    request 	: xhr.XRequest['0'] && JSON.parse(xhr.XRequest['0'])
+                    request 	: xhr.XRequestBody && JSON.parse(xhr.XRequestBody)
                 })).filter(xhr=>!!xhr);
             };
             targetWindow.xhrHistoryDestroy = ()=>{
@@ -25,21 +29,35 @@ export function xhrHistoryInjector() {
                 targetWindow.xhrHistoryLog = undefined;
                 delete targetWindow.xhrHistoryLog;
                 xhrProto.send = originalSend;
+                xhrProto.open = originalOpen;
             };
             Object.defineProperty(targetWindow, 'xhrHistoryInjected', {
                 get: ()=>true
             });
 
             function newXhrSend(oldSend){
-                return function() {
-                    if (typeof arguments !== 'undefined' && arguments !== null) {
-                        XHRHistory.push({
-                            time: new Date(),
-                            XResponse: this,
-                            XRequest: arguments
-                        });
-                    }
+                return function(body) {
+                    // if (typeof arguments !== 'undefined' && arguments !== null) {
+                    //     console.log(this);
+                    //     XHRHistory.push({
+                    //         time: new Date(),
+                    //         XResponse: this,
+                    //         XRequest: arguments
+                    //     });
+                    // }
+                    XHRHistory.push({
+                        time: new Date(),
+                        XResponse: this,
+                        XRequestBody: body
+                    });
                     return oldSend.apply(this, arguments);
+                }
+            }
+
+            function newXhrOpen(oldOpen){
+                return function() {
+                    this.openArguments = arguments;
+                    return oldOpen.apply(this, arguments);
                 }
             }
         }

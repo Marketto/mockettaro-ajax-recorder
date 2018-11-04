@@ -27,8 +27,40 @@
                 },
                 stop: function() {
                     chrome.runtime.onMessage.addListener(
-                        data => {
-                          alert(JSON.stringify(data));
+                        (data = []) => {
+                            function wrapCallToFiles(call = {}){
+                                const wrap = [];
+                                const path = call.url.match(/^(?:https?:\/\/[^\/]+)?\/(.+)/);
+                                const responseContent = JSON.stringify(call.response);
+                                const statusCode = call.code;
+                                const method = call.method;
+
+                                //code
+                                wrap.push({
+                                    path: `${path}.${method}.code`,
+                                    content: statusCode
+                                });
+                                //response
+                                wrap.push({
+                                    path: `${path}.${method}.json`,
+                                    content: responseContent
+                                });
+
+                                return wrap;
+                            }
+
+                            const filteredData = this.urlFilter ? data.filter(record=>record.url.match(new RegExp(this.urlFilter))) : data;
+                            const fileMap = filteredData.length < 2 ? (filteredData[0] ? wrapCallToFiles(filteredData[0]) : []) : filteredData.reduce((prev,curr)=>{
+                                
+                                
+                                const chain = Array.isArray(prev) ? prev : concat(wrapCallToFiles(prev));
+                                
+                                chain = chain.concat(wrapCallToFiles(curr));
+                            
+                                return chain;
+                            });
+                            
+                            alert(JSON.stringify(fileMap));
                         }
                     );
                     chrome.tabs.executeScript(undefined, {code: `window.uninject();`, runAt: 'document_end'}, () => {
