@@ -1,11 +1,16 @@
+
+const Vue = require('vue');
+import './menu.scss';
 (() => {
     chrome.tabs.executeScript(undefined, {code: 'window.injected', runAt: 'document_end'}, ([xhrHistoryInjected]) => {
         new Vue({
             el: "#mainmenu",
             data: {
-                title: 'Mockettaro Ajax Recorder',
+                title: chrome.i18n.getMessage("l10nName"),
                 recording: xhrHistoryInjected,
-                urlFilter: ""
+                urlFilter: "",
+                stopButtonLabel:chrome.i18n.getMessage("l10nStopButtonLabel"),
+                recordButtonLabel: chrome.i18n.getMessage("l10nRecordButtonLabel")
             },
             methods: {
                 record: function() {
@@ -65,7 +70,7 @@
                             });
                         }
                     );
-                    chrome.tabs.executeScript(undefined, {code: `window.uninject();`, runAt: 'document_end'}, () => {
+                    chrome.tabs.executeScript(undefined, {code: 'window.uninject();', runAt: 'document_end'}, () => {
                         this.recording = false;
                     });
                 }

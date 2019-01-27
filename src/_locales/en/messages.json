@@ -1,0 +1,16 @@
+{
+  "l10nName": {
+    "message":"Mockettaro Ajax Recorder"
+    ,"description":"Extension official name"
+  }
+  ,"l10nDescription": {
+    "message":"Dump ajax request/responses data and code to file to be served by mockettaro"
+    ,"description":"Extension Description"
+  }
+  ,"l10nStopButtonLabel": {
+    "message":"Stop"
+  }
+  ,"l10nRecordButtonLabel": {
+    "message":"Record"
+  }
+}

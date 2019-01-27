@@ -1,8 +1,6 @@
 <!doctype html>
 <html>
 	<head>
-		<link rel="stylesheet" href="../../node_modules/bulma/css/bulma.min.css">
-		<link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css">
 	</head>
 	<body>
 		<section id="mainmenu" class="section">
@@ -21,17 +19,16 @@
 							</p>
 						</li>
 						<li class="field">
-							<a v-if="recording" class="button is-rounded is-danger" v-on:click="stop"> Stop recording</a>
-							<a v-else class="button is-rounded" v-on:click="record">Record</a>
+							<a v-if="recording" class="button is-rounded is-danger" v-on:click="stop">
+								{{ stopButtonLabel }}
+							</a>
+							<a v-else class="button is-rounded" v-on:click="record">
+								{{ recordButtonLabel }}
+							</a>
 						</li>
 					</ul>
 				</aside>
 			</div>
 		</section>
-
-        <script src="../../node_modules/vue/dist/vue.min.js"></script>
-        <script src="../../node_modules/jszip/dist/jszip.min.js"></script>
-        <script src="../../node_modules/file-saver/dist/FileSaver.min.js"></script>
-		<script src="menu.js" type="module"></script>
 	</body>
 </html>

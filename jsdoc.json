@@ -1,0 +1,21 @@
+{
+    "source": {
+        "includePattern": ".+\\.js(doc|x)?$",
+        "exclude": [
+            "node_modules",
+            "docs",
+            "test"
+        ]
+    },
+    "opts": {
+        "template": "./node_modules/foodoc/template",
+        "readme": "README.md",
+        "encoding": "utf8",
+        "destination": "./docs/",
+        "recurse": true
+    },
+    "templates": {
+        "systemName"            : "Mockettaro",
+        "systemSummary"         : "Node Rest Mock Server"
+    }
+}

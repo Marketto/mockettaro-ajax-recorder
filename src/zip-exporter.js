@@ -1,3 +1,6 @@
+
+const JSZip = require ("jszip");
+const {saveAs} = require("file-saver");
 export function mockettaroExport(fileMap = [], filename = 'archive'){
     const zip = new JSZip();
 

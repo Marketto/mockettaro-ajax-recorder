@@ -1,0 +1,6 @@
+{
+    "eslint.enable": true,
+    "jsDocCompletion.enabled": true,
+    "jslint.enable": false,
+    "jshint.enable": false
+}
