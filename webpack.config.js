@@ -56,9 +56,9 @@ var options = {
             name: '[name].[ext]',
             outputPath: 'img/',
             publicPath: '../'
-          },
-          exclude: /screenshots/
-        }]
+          }
+        }],
+        exclude: /screenshots/
       },
       {
         test: /\.html$/,

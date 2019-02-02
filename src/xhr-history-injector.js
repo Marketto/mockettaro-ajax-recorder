@@ -8,15 +8,21 @@ export function xhrHistoryInjector() {
             const originalOpen = xhrProto.open;
             xhrProto.send = newXhrSend(xhrProto.send);
             xhrProto.open = newXhrOpen(xhrProto.open);
-            targetWindow.xhrHistoryLog = ()=>{
-                return XHRHistory.map(xhr=>({
-                    timestamp 	: xhr.time.toJSON(),
-                    url 		: xhr.XResponse.openArguments[1], //xhr.XResponse.responseUrl || xhr.XResponse.responseURL,
-                    status  	: xhr.XResponse.status,
-                    method      : xhr.XResponse.openArguments[0],
-                    response    : xhr.XResponse.response && JSON.parse(xhr.XResponse.response),
-                    request 	: xhr.XRequestBody && JSON.parse(xhr.XRequestBody)
-                })).filter(xhr=>!!xhr);
+                return XHRHistory.map(xhr => {
+                    try {
+                        const xhrJson = {
+                            timestamp: xhr.time.toJSON(),
+                            url: xhr.XResponse.openArguments[1], //xhr.XResponse.responseUrl || xhr.XResponse.responseURL,
+                            status: xhr.XResponse.status,
+                            method: xhr.XResponse.openArguments[0],
+                            response: xhr.XResponse.response && JSON.parse(xhr.XResponse.response),
+                            request: xhr.XRequestBody && JSON.parse(xhr.XRequestBody)
+                        };
+                        return xhrJson;
+                    } catch(err) {
+                        return;
+                    }
+                }).filter(xhr=>!!xhr);
             };
             targetWindow.xhrHistoryDestroy = ()=>{
                 Object.defineProperty(targetWindow, 'xhrHistoryInjected', {

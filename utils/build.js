@@ -1,9 +1,11 @@
-var webpack = require("webpack"),
-    config = require("../webpack.config");
-
-delete config.chromeExtensionBoilerplate;
+const webpack = require("webpack");
+const config = require("../webpack.config");
 
 webpack(
   config,
-  function (err) { if (err) throw err; }
+  function (err) {
+    if (err) {
+      throw err;
+    }
+  }
 );
