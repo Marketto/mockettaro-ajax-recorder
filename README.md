@@ -11,6 +11,8 @@ Visit Chrome Web Store
 This project is licensed under the MIT License - see the [License](/LICENSE) file for details
 
 ## Changelog
+### 1.0.3
+- Fixed typo in script to be injected
 ### 1.0.2
 - Fixed parsing of responses which are not json
 ### 1.0.0
