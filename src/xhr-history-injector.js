@@ -41,20 +41,14 @@ export function xhrHistoryInjector() {
                     }
                 }).filter(xhr=>!!xhr);
             };
-            targetWindow.xhrHistoryDestroy = ()=>{
-                Object.defineProperty(targetWindow, 'xhrHistoryInjected', {
-                    configurable: true,
-                    writable: false,
-                    value: undefined
-                });
+            targetWindow.xhrHistoryDestroy = () => {
                 delete targetWindow.xhrHistoryInjected;
-                targetWindow.xhrHistoryLog = undefined;
                 delete targetWindow.xhrHistoryLog;
                 xhrProto.send = originalSend;
                 xhrProto.open = originalOpen;
             };
             Object.defineProperty(targetWindow, 'xhrHistoryInjected', {
-                get: ()=>true
+                get: () => true
             });
 
             xhrProto.send = newXhrSend(xhrProto.send);

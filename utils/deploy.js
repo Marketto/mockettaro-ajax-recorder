@@ -9,19 +9,25 @@ program
     .parse(process.argv);
 
 const zipFolder = require('zip-folder');
+const path = require('path');
+const fs = require('fs');
 
-let folder = 'build';
-let zipName = 'dist/extension.zip';
+const srcFolder = 'build';
+const destFolder = 'dist';
+const zipName = 'extension.zip';
 
 const {refreshToken, extensionId, clientSecret, clientId} = program;
 
+if (!fs.existsSync(destFolder)) {
+    fs.mkdirSync(destFolder);
+}
 // zipping the output folder
-zipFolder(folder, zipName, function (err) {
+zipFolder(srcFolder, path.join(destFolder, zipName), function (err) {
     if (err) {
         console.log('oh no!', err);
         process.exit(1);
     } else {
-        console.log(`Successfully Zipped ${folder} and saved as ${zipName}`);
+        console.log(`Successfully Zipped ${srcFolder} and saved as ${zipName} in ${destFolder}`);
         //uploadZip(); // on successful zipping, call upload
     }
 });
