@@ -6,6 +6,8 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WriteFilePlugin = require("write-file-webpack-plugin");
+const svg2png = require("svg2png");
+const Jimp = require('jimp');
 
 // load the secrets
 var alias = {};
@@ -38,7 +40,7 @@ var options = {
       {
         test: new RegExp('\.(' + fontsExtensions.join('|') + ')$'),
         use: [{
-          loader: "file-loader?name=[name].[ext]",
+          loader: "file-loader",
           options: {
             name: '[name].[ext]'
           }
@@ -51,7 +53,7 @@ var options = {
       {
         test: new RegExp('\.(' + imgExtensions.join('|') + ')$'),
         use: [{
-          loader: "file-loader?name=[name].[ext]",
+          loader: "file-loader",
           options: {
             name: '[name].[ext]',
             outputPath: 'img/',
@@ -76,7 +78,29 @@ var options = {
     // expose and write the allowed env vars on the compiled bundle
     new webpack.EnvironmentPlugin(["NODE_ENV"]),
     new CopyWebpackPlugin([
-      'src/icons',
+    //  'src/icons',
+      ...([16, 19, 48].map(size => ({
+        from: "src/icon.svg",
+        transform: content => svg2png.sync(Buffer.from(content), {height: size, width: size}),
+        to: `icons/icon${size}.png`
+      }))),
+      {
+        from: "src/icon.svg",
+        transform: content => {
+          return Promise.all([
+            new Promise((resolve, reject) => new Jimp(128, 128, (err, image) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(image);
+              }
+            })),
+            svg2png(Buffer.from(content), {height: 96, width: 96}).then(png96Buf => Jimp.read(png96Buf))
+          ]).then(([baseImg, png96Buf]) => baseImg.blit(png96Buf, 16, 16))
+          .then(image => image.getBufferAsync(Jimp.MIME_PNG))
+        },
+        to: `icons/icon128.png`
+      },
       {
         from: "src/_locales",
         transform: content => Buffer.from(JSON.stringify(JSON.parse(content.toString()))),

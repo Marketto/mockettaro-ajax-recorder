@@ -2,20 +2,20 @@ export function xhrHistoryInjector() {
     const XHRHistory = [];
 
     function newXhrSend(oldSend){
-        return function(body) {
+        return function(body, ...args) {
             XHRHistory.push({
                 time: new Date(),
                 XResponse: this,
                 XRequestBody: body
             });
-            return oldSend.apply(this, arguments);
+            return oldSend.apply(this, [body, ...args]);
         }
     }
 
     function newXhrOpen(oldOpen){
-        return function() {
-            this.openArguments = arguments;
-            return oldOpen.apply(this, arguments);
+        return function(...args) {
+            this.openArguments = args;
+            return oldOpen.apply(this, args);
         }
     }
 
@@ -42,11 +42,16 @@ export function xhrHistoryInjector() {
                 }).filter(xhr=>!!xhr);
             };
             targetWindow.xhrHistoryDestroy = () => {
-                delete targetWindow.xhrHistoryInjected;
-                delete targetWindow.xhrHistoryLog;
+                if (targetWindow.hasOwnProperty('xhrHistoryInjected')) {
+                    delete targetWindow.xhrHistoryInjected;
+                }
+                if (targetWindow.hasOwnProperty('xhrHistoryLog')) {
+                    delete targetWindow.xhrHistoryLog;
+                }
                 xhrProto.send = originalSend;
                 xhrProto.open = originalOpen;
             };
+
             Object.defineProperty(targetWindow, 'xhrHistoryInjected', {
                 get: () => true
             });

@@ -1,0 +1,16 @@
+{
+  "l10nName": {
+    "message":"Registratore Ajax per Mockettaro"
+    ,"description":"Nome ufficiale dell'estensione"
+  }
+  ,"l10nDescription": {
+    "message":"Esporta tutte le response in formato json dei servizi ajax per essere usate con mockettaro"
+    ,"description":"Descrizione dell'estensione"
+  }
+  ,"l10nStopButtonLabel": {
+    "message":"Ferma e scarica"
+  }
+  ,"l10nRecordButtonLabel": {
+    "message":"Registra"
+  }
+}

@@ -11,6 +11,11 @@ Visit Chrome Web Store
 This project is licensed under the MIT License - see the [License](/LICENSE) file for details
 
 ## Changelog
+### 1.0.5
+- Fixed minor bugs
+- New custom icon!
+- Italian l10n
+- Russian l10n
 ### 1.0.4
 - Fixed destroy
 ### 1.0.3

@@ -2,7 +2,7 @@
 const Vue = require('vue');
 import './menu.scss';
 (() => {
-    chrome.tabs.executeScript(undefined, {code: 'window.injected', runAt: 'document_end'}, ([xhrHistoryInjected]) => {
+    chrome.tabs.executeScript(undefined, {code: '!!window.injected', runAt: 'document_end'}, ([xhrHistoryInjected]) => {
         new Vue({
             el: "#mainmenu",
             data: {

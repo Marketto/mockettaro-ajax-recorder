@@ -1,5 +1,5 @@
 
-const JSZip = require ("jszip");
+const JSZip = require("jszip");
 const {saveAs} = require("file-saver");
 export function mockettaroExport(fileMap = [], filename = 'archive'){
     const zip = new JSZip();
@@ -9,13 +9,13 @@ export function mockettaroExport(fileMap = [], filename = 'archive'){
     });
 
     return zip.generateAsync({
-        'type'                : "blob", 
+        'type'                : "blob",
         'compression'         : 'DEFLATE',
         'compressionOptions'  : {
             'level'   : 9
         }
     }).then(function(blobData) {
         //FileSaver
-        saveAs(blobData, filename+'.zip');
+        saveAs(blobData, `${filename}.zip`);
     });
 }

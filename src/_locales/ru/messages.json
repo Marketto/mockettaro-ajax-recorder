@@ -1,0 +1,16 @@
+{
+  "l10nName": {
+    "message":"Mockettaro Ajax Recorder"
+    ,"description":"Название расширения браузера"
+  }
+  ,"l10nDescription": {
+    "message":"Позволяет записывать всю полученную информацию Ajax ответов в JSON формате, а так же объединять и воспроизводить в формате zip file для программы Mockettaro"
+    ,"description":"Описание расширения"
+  }
+  ,"l10nStopButtonLabel": {
+    "message":"Стоп"
+  }
+  ,"l10nRecordButtonLabel": {
+    "message":"Запись"
+  }
+}
