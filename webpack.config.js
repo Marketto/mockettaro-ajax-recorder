@@ -116,7 +116,7 @@ var options = {
               string: (t, k, v) => {
                 const matchReplacers = [
                   { //html
-                    matcher: /[\\/]([^\\/]+\.(?:html?|png))$/i,
+                    matcher: /[\\/]([^\\/]+\.html?)$/i,
                     replacer: matched => matched[1] 
                   },
                   { //js
