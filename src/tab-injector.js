@@ -27,12 +27,11 @@ export function tabInjector({methodToInject, destroySnippet, onDestroy}) {
             d.text = `(${$destroy.toString()})(()=>${beforeDestroyEvent}, () => ${destroyMethodName});`;
             (document.head || document.documentElement).appendChild(d);
 
-            const o = document.all[0].getElementsByTagName("destroy-output")[0];
+            const [o] = document.all[0].getElementsByTagName("destroy-output");
             const destroyOutput = JSON.parse(o.innerHTML);
-            chrome.runtime.sendMessage(destroyOutput, () => {
-                window.injected = false;
-                delete window.injected;
-            });
+            chrome.runtime.sendMessage(destroyOutput);
+            window.injected = false;
+            delete window.injected;
         };
 
         window.injected = true;

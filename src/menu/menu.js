@@ -61,8 +61,8 @@ import './menu.scss';
                                 return chain.concat(wrapCallToFiles(curr));
                             });
                             
-                            import('../zip-exporter.js').then(({mockettaroExport})=>{
-                                mockettaroExport(fileMap).catch(err => {
+                            import('../zip-exporter.js').then(({mockettaroZipExporter}) => {
+                                mockettaroZipExporter(fileMap).catch(err => {
                                     alert(`An error occurred while trying to export zip of records\n${err.toString()}`);
                                 });
                             }).catch(err => {

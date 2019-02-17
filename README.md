@@ -11,6 +11,9 @@ Visit Chrome Web Store
 This project is licensed under the MIT License - see the [License](/LICENSE) file for details
 
 ## Changelog
+### 1.0.8
+- Recording status fix
+- Error handle for not-json formats and other process errors
 ### 1.0.7
 - Fixed package build
 ### 1.0.6
