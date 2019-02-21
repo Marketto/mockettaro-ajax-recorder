@@ -20,8 +20,8 @@ import './menu.scss';
                     ]).then(([{xhrHistoryInjector}, {tabInjector}]) => {
                         const code = tabInjector({
                             methodToInject: xhrHistoryInjector, 
-                            destroySnippet: 'xhrHistoryDestroy()',
-                            onDestroy: 'xhrHistoryLog()'
+                            destroyer: 'xhrHistoryDestroy()',
+                            exporter: 'xhrHistoryLog()'
                         });
                         chrome.tabs.executeScript(undefined, {code, runAt: 'document_start'}, ()=>{
                             this.recording = true;

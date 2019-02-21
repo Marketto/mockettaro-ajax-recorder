@@ -3,11 +3,25 @@ export function xhrHistoryInjector() {
 
     function newXhrSend(oldSend){
         return function(body, ...args) {
-            XHRHistory.push({
-                time: new Date(),
-                XResponse: this,
-                XRequestBody: body
-            });
+            const xhrLog = {
+                timestamp: new Date(),
+                url: this.openArguments[1],
+                method: this.openArguments[0],
+                request: body && JSON.parse(body)
+            };
+            XHRHistory.push(xhrLog);
+            this.onreadystatechange = () => {
+                if (this.readyState >= 2) {
+                    xhrLog.status = this.status;
+                    if (this.readyState === 4) {
+                        try {
+                            xhrLog.response = JSON.parse(this.response);
+                        } catch(err) {
+                            xhrLog.response = this.response;
+                        }
+                    }
+                }
+            };
             return oldSend.apply(this, [body, ...args]);
         }
     }
@@ -24,22 +38,8 @@ export function xhrHistoryInjector() {
             const xhrProto = targetWindow.XMLHttpRequest.prototype;
             const originalSend = xhrProto.send;
             const originalOpen = xhrProto.open;
-            targetWindow.xhrHistoryLog = ()=>{
-                return (XHRHistory || []).map(xhr => {
-                    try {
-                        const xhrJson = {
-                            timestamp: xhr.time.toJSON(),
-                            url: xhr.XResponse.openArguments[1],
-                            status: xhr.XResponse.status,
-                            method: xhr.XResponse.openArguments[0],
-                            response: xhr.XResponse.response && JSON.parse(xhr.XResponse.response),
-                            request: xhr.XRequestBody && JSON.parse(xhr.XRequestBody)
-                        };
-                        return xhrJson;
-                    } catch(err) {
-                        return null;
-                    }
-                }).filter(xhr=>!!xhr);
+            targetWindow.xhrHistoryLog = () => {
+                return XHRHistory || [];
             };
             targetWindow.xhrHistoryDestroy = () => {
                 if (targetWindow.xhrHistoryInjected) {

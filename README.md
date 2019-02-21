@@ -11,6 +11,9 @@ Visit Chrome Web Store
 This project is licensed under the MIT License - see the [License](/LICENSE) file for details
 
 ## Changelog
+### 1.0.9
+- Fixed special chars transfer from page to extension
+- Fixed xhr response recorder event catcher
 ### 1.0.8
 - Recording status fix
 - Error handle for not-json formats and other process errors
