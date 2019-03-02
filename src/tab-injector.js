@@ -37,7 +37,7 @@ export function tabInjector({methodToInject, exporter, destroyer}) {
             const xhrLog = JSON.parse(decodeURIComponent(atob(o.innerHTML)));
             chrome.runtime.sendMessage(xhrLog);
 
-            //injectScript($destroy, destroyMethodName);
+            injectScript($destroy, destroyMethodName);
         };
 
         window.injected = true;

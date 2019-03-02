@@ -11,6 +11,9 @@ Visit Chrome Web Store
 This project is licensed under the MIT License - see the [License](/LICENSE) file for details
 
 ## Changelog
+### 1.1.0
+- Restored uninject event
+- Added filter to responses: excluding string responses
 ### 1.0.9
 - Fixed special chars transfer from page to extension
 - Fixed xhr response recorder event catcher

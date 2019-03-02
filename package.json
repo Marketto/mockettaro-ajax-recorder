@@ -1,6 +1,6 @@
 {
   "name": "mockettaro-ajax-recorder",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Dump ajax request/responses data and code to file to be served by mockettaro",
   "main": "manifest.json",
   "scripts": {

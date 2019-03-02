@@ -54,7 +54,8 @@ import './menu.scss';
                                 return wrap;
                             }
 
-                            const filteredData = this.urlFilter ? data.filter(record=>record.url.match(new RegExp(this.urlFilter))) : data;
+                            const filteredData = (this.urlFilter ? data.filter(record=>record.url.match(new RegExp(this.urlFilter))) : data)
+                                .filter(record => typeof record.response !== 'string');
                             const fileMap = filteredData.length < 2 ? (filteredData[0] ? wrapCallToFiles(filteredData[0]) : []) : filteredData.reduce((prev,curr)=>{
                                 const chain = Array.isArray(prev) ? prev : [].concat(wrapCallToFiles(prev));
                                 
