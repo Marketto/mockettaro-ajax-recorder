@@ -36,7 +36,8 @@ import './menu.scss';
                             function wrapCallToFiles(call = {}){
                                 const wrap = [];
                                 const [,path] = call.url.match(/^(?:https?:\/\/[^\/]+)?\/([^?]+)/);
-                                const responseContent = JSON.stringify(call.response);
+                                const responseContent = (call.response && typeof call.response === 'object') ? JSON.stringify(call.response) : call.response;
+                                const ext = (!call.response || typeof call.response === 'object') ? 'json' : 'txt';
                                 const statusCode = call.status;
                                 const method = call.method;
 
@@ -46,10 +47,12 @@ import './menu.scss';
                                     content: "" + statusCode
                                 });
                                 //response
-                                wrap.push({
-                                    path: `${path}.${method}.json`,
-                                    content: responseContent
-                                });
+                                if (responseContent) {
+                                    wrap.push({
+                                        path: `${path}.${method}.${ext}`,
+                                        content: responseContent
+                                    });
+                                }
 
                                 return wrap;
                             }
