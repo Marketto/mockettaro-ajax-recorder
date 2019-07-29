@@ -1,16 +1,16 @@
 # Mockettaro Ajax Recorder
+[![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/haidagbdbonoklpdmmgjkcmgjnmjccil)](https://chrome.google.com/webstore/detail/mockettaro-ajax-recorder/haidagbdbonoklpdmmgjkcmgjnmjccil)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/users/haidagbdbonoklpdmmgjkcmgjnmjccil)](https://chrome.google.com/webstore/detail/mockettaro-ajax-recorder/haidagbdbonoklpdmmgjkcmgjnmjccil)
+[![Dependency status](https://david-dm.org/Marketto/mockettaro-ajax-recorder.svg)](https://david-dm.org/Marketto/mockettaro-ajax-recorder)
+[![Dev dependency status](https://david-dm.org/Marketto/mockettaro-ajax-recorder/dev-status.svg)](https://david-dm.org/Marketto/mockettaro-ajax-recorder?type=dev)
+[![Blog](https://img.shields.io/badge/blog-marketto-blue.svg)](http://blog.marketto.it)
+[![Buy me a coffee](https://img.shields.io/badge/Ko--fi-donate-blueviolet)](https://ko-fi.com/marketto)
 
-### Install
+## INSTALL
 Visit Chrome Web Store
 
-## Author
-**Marco Ricupero** - [Github](https://github.com/Marketto) - [Blog](http://blog.marketto.it)
 
-
-## License
-This project is licensed under the MIT License - see the [License](/LICENSE) file for details
-
-## Changelog
+## CHANGELOG
 ### 1.1.1
 - Fixed File map writing before zip export
 ### 1.1.0
@@ -39,3 +39,9 @@ This project is licensed under the MIT License - see the [License](/LICENSE) fil
 - Fixed parsing of responses which are not json
 ### 1.0.0
 - First draft
+
+## LICENSE
+[MIT License](LICENSE)
+
+## AUTHOR
+[Marco Ricupero](mailto:marco.ricupero@gmail.com)
