@@ -3,6 +3,7 @@
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/users/haidagbdbonoklpdmmgjkcmgjnmjccil)](https://chrome.google.com/webstore/detail/mockettaro-ajax-recorder/haidagbdbonoklpdmmgjkcmgjnmjccil)
 [![Dependency status](https://david-dm.org/Marketto/mockettaro-ajax-recorder.svg)](https://david-dm.org/Marketto/mockettaro-ajax-recorder)
 [![Dev dependency status](https://david-dm.org/Marketto/mockettaro-ajax-recorder/dev-status.svg)](https://david-dm.org/Marketto/mockettaro-ajax-recorder?type=dev)
+[![LICENSE](https://img.shields.io/badge/licese-MIT-gold.svg)](https://github.com/Marketto/mockettaro-ajax-recorder/blob/master/LICENSE)
 [![Blog](https://img.shields.io/badge/blog-marketto-blue.svg)](http://blog.marketto.it)
 [![Buy me a coffee](https://img.shields.io/badge/Ko--fi-donate-blueviolet)](https://ko-fi.com/marketto)
 
