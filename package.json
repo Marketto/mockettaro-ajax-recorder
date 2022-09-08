@@ -30,7 +30,7 @@
     "bulma": "^0.7.2",
     "file-saver": "^2.0.0-rc.4",
     "font-awesome": "^4.7.0",
-    "jszip": "^3.1.5",
+    "jszip": "^3.7.0",
     "vue": "^1.0.28-csp"
   },
   "devDependencies": {
